@@ -1,0 +1,21 @@
+[debug] [2022-05-22T15:43:52.755Z] ----------------------------------------------------------------------
+[debug] [2022-05-22T15:43:52.757Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\otto\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2022-05-22T15:43:52.758Z] CLI Version:   11.0.0
+[debug] [2022-05-22T15:43:52.758Z] Platform:      win32
+[debug] [2022-05-22T15:43:52.758Z] Node Version:  v17.9.0
+[debug] [2022-05-22T15:43:52.759Z] Time:          Sun May 22 2022 12:43:52 GMT-0300 (Argentina Standard Time)
+[debug] [2022-05-22T15:43:52.759Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-05-22T15:43:52.769Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-05-22T15:43:52.769Z] > authorizing via signed-in user (acostaottonelli.santiago@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\otto\portfolioWeb - Copy
+
