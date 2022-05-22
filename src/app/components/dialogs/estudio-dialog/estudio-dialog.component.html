@@ -1,0 +1,58 @@
+
+<h1 mat-dialog-title>{{titleDialog}}</h1>
+<form [formGroup]="dialogForm">
+    <div mat-dialog-content>
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre de institucion</mat-label>
+          <input matInput formControlName="institucion">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Titulo</mat-label>
+            <input matInput formControlName="titulo">
+          </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Fecha de inicio</mat-label>
+            <input matInput formControlName="fechaInicio" [matDatepicker]="picker1">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+       
+        <mat-form-field appearance="outline">
+            <mat-label>Fecha de fin</mat-label>
+            <input matInput formControlName="fechaFin" [matDatepicker]="picker2">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Código de credencial</mat-label>
+            <input matInput formControlName="credencial">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Enlace validacion de credencial</mat-label>
+            <input matInput formControlName="linkValidacion">
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline">
+            <mat-label>URL de imagen de credencial</mat-label>
+            <input matInput formControlName="credencialImgFuente">
+          </mat-form-field>
+
+      </div>
+</form>
+
+
+
+<div mat-dialog-actions align="end">
+  <div *ngIf="inputDataDialog.intencion!=='crear'">
+    <button  mat-button (click)="cerrarDialog('eliminar')"> Eliminar</button>
+  </div>
+  <button mat-button (click)="cerrarDialog('cancelar')">Cancelar</button>
+  <button mat-button cdkFocusInitial (click)="cerrarDialog('confirmar')">{{actionBtn}}</button>
+</div>
+
