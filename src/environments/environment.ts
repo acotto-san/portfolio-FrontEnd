@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl:'https://argenprog-portfolio-backend.herokuapp.com'
-  // apiBaseUrl: 'http://localhost:8080'
+  // apiBaseUrl:'https://portfolio-backend.herokuapp.com'
+  apiBaseUrl: 'http://localhost:8080'
 };
 
 /*

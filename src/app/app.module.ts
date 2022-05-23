@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MockcompComponent } from './components/mockcomp/mockcomp.component';
-import { Mock2Component } from './components/mock2/mock2.component';
 import { CurriculumComponent } from './components/curriculum/curriculum.component';
 import { PuestoDialogComponent } from './components/dialogs/puesto-dialog/puesto-dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -35,7 +34,6 @@ import { EstudioDialogComponent } from './components/dialogs/estudio-dialog/estu
   declarations: [
     AppComponent,
     MockcompComponent,
-    Mock2Component,
     CurriculumComponent,
     PuestoDialogComponent,
     ExperienciaDialogComponent,
