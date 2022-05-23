@@ -34,6 +34,7 @@ export class CurriculumComponent implements OnInit {
   persona:Persona = new Persona({});
   idPersona:number = 1;
 
+  editExperiencias:boolean = false;
   public content: any = {};
   public other_content: any = {};
 
