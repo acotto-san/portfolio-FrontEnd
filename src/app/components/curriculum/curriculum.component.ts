@@ -32,7 +32,7 @@ import { SkillDialogComponent } from '../dialogs/skill-dialog/skill-dialog.compo
 
 export class CurriculumComponent implements OnInit {
   persona:Persona = new Persona({});
-  idPersona:number = 1;
+  idPersona:number = 27;
 
   public content: any = {};
   public other_content: any = {};
