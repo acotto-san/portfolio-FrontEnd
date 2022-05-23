@@ -23,6 +23,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatSelectModule} from '@angular/material/select';
+import {MatDividerModule} from '@angular/material/divider';
 
 import { ExperienciaDialogComponent } from './components/dialogs/experiencia-dialog/experiencia-dialog.component';
 import { BannerDialogComponent } from './components/dialogs/banner-dialog/banner-dialog.component';
@@ -61,7 +62,8 @@ import { EstudioDialogComponent } from './components/dialogs/estudio-dialog/estu
     MatToolbarModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -113,7 +113,7 @@
 
 
     <div *ngIf="persona.curriculum.experiencias" class="row d-flex justify-content-center">
-        <mat-card class="col-sm-12 col-md-8 ">
+        <mat-card class="col-sm-12 col-md-8 " style="padding: 30px;">
                 
             <mat-card-header class="row">
 
@@ -170,7 +170,7 @@
                                 </div>
 
                                 <div class="col-sm-2 col-md-2 d-flex justify-content-end ">
-                                    <button *ngIf="editExperiencias" mat-mini-fab (click)="openPuestoDialog({intencion:'crear',payload:experiencia})" >
+                                    <button *ngIf="editExperiencias" mat-mini-fab (click)="crudPuestoDialog({intencion:'crear',payload:experiencia})" >
                                         <mat-icon>add</mat-icon>
                                     </button>
                                     <button *ngIf="editExperiencias" mat-mini-fab (click)="openExperienciaDialog({intencion:'editar',payload:experiencia})">
@@ -187,23 +187,27 @@
                                     <li *ngFor="let puesto of experiencia.puestos" >
                                         <div class="row">
                                             <div class="col-9">
-                                            <p  style="height: 2.5rem;"><b>{{puesto.nombre}}</b></p>
-
+                                                <p  style="height: 2.5rem;"><b>{{puesto.nombre}}</b><br>
+                                                    <span>{{puesto.fechaInicio | date: 'MMM YYYY' }} / {{puesto.fechaFin | date: 'MMM YYYY'}}</span></p>
                                             </div>
-                                        <div class="col-3 d-flex justify-content-end">
-                                            <button  mat-mini-fab *ngIf="editExperiencias" (click)="openPuestoDialog({intencion:'editar',payload:puesto})">
-                                                <mat-icon>edit</mat-icon>
-                                            </button>
+                                            <div class="col-3 d-flex justify-content-end">
+                                                <button  mat-mini-fab *ngIf="editExperiencias" (click)="crudPuestoDialog({intencion:'editar',payload:puesto})">
+                                                    <mat-icon>edit</mat-icon>
+                                                </button>
+                                            </div>
                                         </div>
-                                        </div>
-                                        <p>{{puesto.fechaInicio | date: 'MMM YYYY' }} / {{puesto.fechaFin | date: 'MMM YYYY'}}</p>
+                                        
                                         <p>{{puesto.descripcion}}</p>
                                     </li> 
                                     </ul>
                             </div>
-                            <div class="row">
-
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-8"  style="overflow: hidden;">
+                                    <mat-divider></mat-divider>
+                                </div>
                             </div>
+                        
+
                         </li>
                     </ul>
                 </div>

@@ -132,7 +132,7 @@ crudBannerAction(param:IODataDialog){
 
 
 // ---------- Seccion: Dialogs de crud de tarjeta experiencias ----------
-  openPuestoDialog(inputData:IODataDialog): void {
+  crudPuestoDialog(inputData:IODataDialog): void {
     //abre el dialog y le mando la intencion ya que se puede llamar a este dialog 
     //desde diferentes botones, asi que el dialog despues analiza que me tiene  que 
     //presentar (escenario para editar/para crear)
