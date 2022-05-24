@@ -35,6 +35,7 @@ export class CurriculumComponent implements OnInit {
   idPersona:number = 27;
 
   editExperiencias:boolean = false;
+  loadingDiv:boolean = true;
   public content: any = {};
   public other_content: any = {};
 
@@ -50,7 +51,20 @@ export class CurriculumComponent implements OnInit {
               ) { }
 
   ngOnInit(): void {
-    this.traerPersona()
+    this.primerCarga()
+  }
+
+  primerCarga(id:number=this.idPersona){
+    this.personaServ.getPersona(id).subscribe({
+      next:(response)=>{
+        this.persona = new Persona(response);
+        console.log("traigo persona");
+        this.loadingDiv = false;
+      },
+      error:()=>{
+        alert("error al cargar persona")
+      }
+    });
   }
 
   traerPersona(id:number=this.idPersona){
