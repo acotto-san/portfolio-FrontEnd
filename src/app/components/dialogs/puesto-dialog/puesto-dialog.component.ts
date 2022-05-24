@@ -65,10 +65,10 @@ export class PuestoDialogComponent implements OnInit {
   // ESTEcerrarDialog habría que formatearlo para que  quede como el de expDialog
   cerrarDialog(intencionDeCierre:'cancelar'|'eliminar'|'confirmar'){
     
-    if(this.dialogForm.valid){
-      switch(intencionDeCierre){
-        case 'confirmar':
-          
+    switch(intencionDeCierre){
+      case 'confirmar':
+        
+        if(this.dialogForm.valid){
           switch(this.inputDataDialog.intencion){
             case 'editar':
               this.outputDataParaEditar();
@@ -77,38 +77,18 @@ export class PuestoDialogComponent implements OnInit {
               this.outputDataParaCrear(); 
               break;
             }
-          break;
-        
-        case 'eliminar':
-          this.outputDataParaEliminar();
-          break;
-        
-        case 'cancelar':
-          this.dialogForm.reset();
-          this.dialogRef.close({intencion:'cancelar',payload:null})
-          break;
-      }
+        }
+        break;
+      
+      case 'eliminar':
+        this.outputDataParaEliminar();
+        break;
+      
+      case 'cancelar':
+        this.dialogForm.reset();
+        this.dialogRef.close({intencion:'cancelar',payload:null})
+        break;
     }
-
-
-    // switch(intencionDeCierre){
-    //   case 'confirmar':
-        
-    //     if(this.inputDataDialog.intencion=="editar"){
-    //       this.outputDataParaEditar();
-    //     }else if(this.inputDataDialog.intencion=="crear"){
-    //       this.outputDataParaCrear();   
-    //     };
-    //     break;
-      
-    //   case 'eliminar':
-    //     this.outputDataParaEliminar();
-    //     break;
-      
-    //   case 'cancelar':
-    //     this.outputDataSinAccion();
-    //     break;
-    // }
   }
   outputDataParaCrear(){
     this.volcarDataDelForm();

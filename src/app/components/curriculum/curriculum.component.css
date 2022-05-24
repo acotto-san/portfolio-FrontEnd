@@ -16,8 +16,14 @@ button[mat-button]{
 }
 
 button[mat-mini-fab]{
-    background-color: rgba(60, 0, 128, 0.733);
+    background-color: rgb(255, 255, 255);
+    color: black;
+    box-shadow: none;
+    margin: 0px 2px 0px;
 }
 button[mat-mini-fab]:hover{
-    background-color: rgba(60, 0, 128, 0.87);
+    background-color: rgba(205, 198, 178, 0.536);
+    box-sizing: content-box;
+    box-shadow: 1px 1px 5px rgb(196, 196, 196);
   }
+

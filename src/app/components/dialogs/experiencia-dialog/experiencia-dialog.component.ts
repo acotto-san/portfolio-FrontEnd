@@ -41,7 +41,7 @@ export class ExperienciaDialogComponent implements OnInit {
       nombreEmpresa : ['',Validators.required],
       tipoJornada : ['',Validators.required],
       ubicacion : ['',Validators.required],
-      logoImgFuente : ['',Validators.required]
+      logoImgFuente : ['']
 
     });
     this.evaluarAccion()
@@ -73,18 +73,18 @@ export class ExperienciaDialogComponent implements OnInit {
   }
   cerrarDialog(intencionDeCierre:'cancelar'|'eliminar'|'confirmar'){
     
-    if(this.dialogForm.valid){
-      switch(intencionDeCierre){
+        switch(intencionDeCierre){
         case 'confirmar':
-          
-          switch(this.inputDataDialog.intencion){
-            case 'editar':
-              this.outputDataParaEditar();
-              break;
-            case 'crear':
-              this.outputDataParaCrear(); 
-              break;
-            }
+          if(this.dialogForm.valid){
+            switch(this.inputDataDialog.intencion){
+              case 'editar':
+                this.outputDataParaEditar();
+                break;
+              case 'crear':
+                this.outputDataParaCrear(); 
+                break;
+              }
+          }
           break;
         
         case 'eliminar':
@@ -96,7 +96,6 @@ export class ExperienciaDialogComponent implements OnInit {
           this.dialogRef.close({intencion:'cancelar',payload:null})
           break;
       }
-    }
   }
   outputDataParaCrear(){
     let tempCV:Curriculum = new Curriculum(this.inputDataDialog.payload)

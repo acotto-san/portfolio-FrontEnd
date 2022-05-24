@@ -1,24 +1,3 @@
-// import { Component, Inject, OnInit } from '@angular/core';
-// import { FormBuilder } from '@angular/forms';
-// import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
-// @Component({
-//   selector: 'app-proyecto-dialog',
-//   templateUrl: './proyecto-dialog.component.html',
-//   styleUrls: ['./proyecto-dialog.component.css']
-// })
-// export class ProyectoDialogComponent implements OnInit {
-
-//   constructor(
-//       public dialogRef: MatDialogRef<ProyectoDialogComponent>,
-//       private formBuilder:FormBuilder,
-//       @Inject(MAT_DIALOG_DATA) public data: any
-//   ) { }
-
-//   ngOnInit(): void {
-//   }
-
-// }
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -83,9 +62,9 @@ export class ProyectoDialogComponent implements OnInit {
   }
 
   cerrarDialog(intencionDeCierre:'cancelar'|'confirmar'|'eliminar'){
-    if(this.dialogForm.valid){
-      switch(intencionDeCierre){
-        case 'confirmar':
+    switch(intencionDeCierre){
+      case 'confirmar':
+        if(this.dialogForm.valid){
           switch(this.inputDataDialog.intencion){
             case 'editar':
               this.outputDataParaEditar();
@@ -94,15 +73,15 @@ export class ProyectoDialogComponent implements OnInit {
               this.outputDataParaCrear();
               break;
           }
-          break;
-        case 'eliminar':
-          this.outputDataParaEliminar();
-          break;
-        case 'cancelar':
-          this.dialogForm.reset();
-          this.dialogRef.close({intencion:'cancelar',payload:null})
-          break;
-      }
+        }
+        break;
+      case 'eliminar':
+        this.outputDataParaEliminar();
+        break;
+      case 'cancelar':
+        this.dialogForm.reset();
+        this.dialogRef.close({intencion:'cancelar',payload:null})
+        break;
     }
   }
 

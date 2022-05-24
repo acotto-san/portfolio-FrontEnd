@@ -56,9 +56,10 @@ export class SkillDialogComponent implements OnInit {
   }
 
   cerrarDialog(intencionDeCierre:'cancelar'|'confirmar'|'eliminar'){
-    if(this.dialogForm.valid){
-      switch(intencionDeCierre){
-        case 'confirmar':
+    
+    switch(intencionDeCierre){
+      case 'confirmar':
+        if(this.dialogForm.valid){
           switch(this.inputDataDialog.intencion){
             case 'editar':
               this.outputDataParaEditar();
@@ -66,16 +67,16 @@ export class SkillDialogComponent implements OnInit {
             case 'crear':
               this.outputDataParaCrear();
               break;
+            }
           }
-          break;
-        case 'eliminar':
-          this.outputDataParaEliminar();
-          break;
-        case 'cancelar':
-          this.dialogForm.reset();
-          this.dialogRef.close({intencion:'cancelar',payload:null})
-          break;
-      }
+        break;
+      case 'eliminar':
+        this.outputDataParaEliminar();
+        break;
+      case 'cancelar':
+        this.dialogForm.reset();
+        this.dialogRef.close({intencion:'cancelar',payload:null})
+        break;
     }
   }
 
