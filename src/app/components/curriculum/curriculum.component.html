@@ -1,25 +1,27 @@
-<div class="loader" [hidden]="!loadingDiv">
+<div *ngIf="loading;then loadingSpinner else content"></div>
+<ng-template #loadingSpinner>
+    <div class="loader"></div>
+</ng-template>
+
+<ng-template #content>
+    <div  class="container">
+
+        <!-- ------------------Nueva seccion------------------------ -->
+        <div *ngIf="persona.curriculum.banner" class="row d-flex justify-content-center">
+            <mat-card class="example-card col-sm-12 col-md-8">
+                <mat-card-header>
     
-</div>
-<div  class="container">
-
-    <!-- ------------------Nueva seccion------------------------ -->
-    <div *ngIf="persona.curriculum.banner" class="row d-flex justify-content-center">
-        <mat-card class="example-card col-sm-12 col-md-8">
-            <mat-card-header>
-
-            </mat-card-header>
-            <div class="mat-card-image-banner">
-                <div *ngIf="persona.curriculum.banner.bannerImg.fuente;then imageBanner else placeholderBanner"></div>
-                <ng-template #imageBanner>
-                    <img mat-card-image [src]="persona.curriculum.banner.bannerImg.fuente" alt="Imagen del banner" style="max-height: 300px; object-fit:cover;">
-                </ng-template>
-                <ng-template #placeholderBanner>
-                    <img mat-card-image src="https://www.codingid.com/wp-content/uploads/2019/12/Hero-Banner-Placeholder-Dark-1024x480-1.png" alt="Imagen default del banner">
-                </ng-template>
-            </div>
-            <mat-card-content style="box-sizing: border-box;">
-                <div >
+                </mat-card-header>
+                <div class="mat-card-image-banner">
+                    <div *ngIf="persona.curriculum.banner.bannerImg.fuente;then imageBanner else placeholderBanner"></div>
+                    <ng-template #imageBanner>
+                        <img mat-card-image [src]="persona.curriculum.banner.bannerImg.fuente" alt="Imagen del banner" style="max-height: 300px; object-fit:cover;">
+                    </ng-template>
+                    <ng-template #placeholderBanner>
+                        <img mat-card-image src="https://www.codingid.com/wp-content/uploads/2019/12/Hero-Banner-Placeholder-Dark-1024x480-1.png" alt="Imagen default del banner">
+                    </ng-template>
+                </div>
+                <mat-card-content style="box-sizing: border-box;">
                     <div class="row">
                         <div class="col-sm-12 col-md-4">
                             <div class="row avatar-row">
@@ -42,246 +44,235 @@
                             <p>{{persona.curriculum.banner.descripcionPersonal}}</p>
                         </div>
                     </div>
-                </div>
-            </mat-card-content>
-            <mat-card-actions>
-              <button mat-stroked-button color="primary" (click)="crudBannerDialog({intencion:'editar',payload:persona.curriculum.banner})">
-                  <mat-icon>edit</mat-icon>
-              </button>
-            </mat-card-actions>
-          </mat-card>
-    </div>
-
-
-    <!-- -Nueva seccion------------------------------------ -->
-
-    <div *ngIf="persona.curriculum.experiencias" class="row d-flex justify-content-center">
-        <mat-card class="col-sm-12 col-md-8 " style="padding: 30px;">
-                
-            <mat-card-header class="row">
-
-                <div class="col-sm-2">
-
-                </div>
-
-                <div class="col-sm-8 d-flex align-content-center">
-                    <mat-card-title>
-                        Experiencias Laborales
-                    </mat-card-title>
-                </div>
-                
-                <div class="col-sm-2">
-                    <mat-card-actions align="end">
-                        <button *ngIf="editExperiencias" mat-mini-fab (click)="openExperienciaDialog({intencion:'crear',payload:persona.curriculum})">
-                            <mat-icon>add</mat-icon>
-                        </button>
-                        <button mat-mini-fab (click)="editExperiencias = !editExperiencias">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                    </mat-card-actions>
-                </div>
-
-                
-
-
-            </mat-card-header>
-
-
-            <mat-card-content>
-                <div >
-                    <ul style="box-sizing: border-box;">
-                        <li *ngFor="let experiencia of persona.curriculum.experiencias"  >
-
-                            <div class="row d-flex justify-content-end" style="padding-top: 2rem;" >
-                                
-                                    
-                                <div *ngIf="experiencia.logoImg.fuente;then imagenLogoEmpresa else placeholderLogoEmpresa"></div> 
-                                <ng-template #imagenLogoEmpresa>
-                                    <div style="max-height: 7rem;" class="col-sm-2 col-md-4 d-flex justify-content-end">
-                                        <img style="height: 100%;  object-fit:scale-down;" [src]="experiencia.logoImg.fuente" alt="Imagen del logo empresarial">
-                                    </div>
-                                </ng-template>
-                                <ng-template #placeholderLogoEmpresa>
-                                    <div style="max-height: 7rem;" class="col-sm-2 col-md-4 d-flex justify-content-end">
-                                        <img style="height: 100%;max-height: 50px; object-fit:scale-down;" src="https://angular.io/assets/images/logos/angular/logo-nav@2x.png" alt="Imagen default del logo empresarial">
-                                    </div>
-                                </ng-template>
-
-                                <div class="col-sm-10 col-md-6">
-                                    <h2 ><b>{{experiencia.nombreEmpresa}}</b></h2>
-                                    <span>{{experiencia.tipoJornada}}</span>
-                                    <p>{{experiencia.ubicacion}}</p>
-                                </div>  
-
-                                <div class="col-sm-2 col-md-2 d-flex justify-content-end ">
-                                    <button *ngIf="editExperiencias" mat-mini-fab (click)="crudPuestoDialog({intencion:'crear',payload:experiencia})" >
-                                        <mat-icon>add</mat-icon>
-                                    </button>
-                                    <button *ngIf="editExperiencias" mat-mini-fab (click)="openExperienciaDialog({intencion:'editar',payload:experiencia})">
-                                        <mat-icon>edit</mat-icon>
-                                    </button>
-                                </div>
-                                    
-                            </div>
-
-                            <div class="row">
-
-                                <div class="col-sm col-md-4"></div>
-                                <ul class="col-sm-12 col-md-8">
-                                    <li *ngFor="let puesto of experiencia.puestos" >
-                                        <div class="row">
-                                            <div class="col-9">
-                                                <p  style="height: 2.5rem;"><b>{{puesto.nombre}}</b><br>
-                                                    <span>{{puesto.fechaInicio | date: 'MMM YYYY' }} / {{puesto.fechaFin | date: 'MMM YYYY'}}</span></p>
-                                            </div>
-                                            <div class="col-3 d-flex justify-content-end">
-                                                <button  mat-mini-fab *ngIf="editExperiencias" (click)="crudPuestoDialog({intencion:'editar',payload:puesto})">
-                                                    <mat-icon>edit</mat-icon>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        
-                                        <p>{{puesto.descripcion}}</p>
-                                    </li> 
-                                    </ul>
-                            </div>
-                            <div class="row d-flex justify-content-center">
-                                <div class="col-8"  style="overflow: hidden;">
-                                    <mat-divider></mat-divider>
-                                </div>
-                            </div>
-                        
-
-                        </li>
-                    </ul>
-                </div>
-            </mat-card-content>
-
-        </mat-card>
-    </div>
+                </mat-card-content>
+                <mat-card-actions>
+                  <button mat-stroked-button color="primary" (click)="crudBannerDialog({intencion:'editar',payload:persona.curriculum.banner})">
+                      <mat-icon>edit</mat-icon>
+                  </button>
+                </mat-card-actions>
+              </mat-card>
+        </div>
     
-    <!-- -----------------------Nueva Seccion------------------ -->
-    <div *ngIf="persona.curriculum.estudios" class="row d-flex justify-content-center">
-        <mat-card class="col-sm-12 col-md-8">
-            <mat-card-title>
-                Estudios
-            </mat-card-title>
-            <mat-card-content>
-                <div class="container">
-                    <ul style="box-sizing: border-box;">
-                        <li *ngFor="let estudio of persona.curriculum.estudios" class="row">
-                            
-                            <div *ngIf="estudio.credencialImg.fuente;then imagenCredencial else placeholderCredencial"></div>
-                            <ng-template #imagenCredencial>
-                                <div>
-                                    <img [src]="estudio.credencialImg.fuente" alt="Imagen de credencial educativa" style="max-height: 200px; object-fit:contain;" alt="Imagen de credencial">
-                                </div>
-                            </ng-template>
-                            <ng-template #placeholderCredencial>
-                                <div>
-                                    <img src="https://cdn-payscale.com/content/placeholder-images/certification-placeholder.png" style="max-height: 200px; object-fit:contain;" alt="Imagen default de credencial educativa" >
-                                </div>
-                            </ng-template>
-
-                            <p>{{estudio.institucion}}</p>
-                            <p>{{estudio.titulo}}</p>
-                            <p>{{estudio.fechaInicio | date: 'MMM YYYY' }} / {{estudio.fechaFin | date: 'MMM    YYYY'}}</p>
-                            <p>Código de credencial: {{estudio.credencial}}</p>
-                            <a [href]='estudio.linkValidacion'>{{estudio.linkValidacion}}</a>
-                            <button mat-mini-fab color="primary" (click)="crudEstudioDialog({intencion:'editar',payload:estudio})">
-                                <mat-icon>edit</mat-icon>
-                            </button>
-
-                        </li>
-
-
-
-                    </ul>
+    
+        <!-- -Nueva seccion------------------------------------ -->
+    
+        <div *ngIf="persona.curriculum.experiencias" class="row d-flex justify-content-center">
+            <mat-card class="col-sm-12 col-md-8 " style="padding: 30px;">
+                    
+                
+                <div class="row d-flex justify-content-end">
+                    <div class="col-sm-8 d-flex align-content-center" >
+                        <h2 style="justify-self: end;">Experiencias Laborales</h2>
                 </div>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-mini-fab color="primary" (click)="crudEstudioDialog({intencion:'crear',payload:persona.curriculum})">
-                    <mat-icon>add</mat-icon>
-                </button>
-              </mat-card-actions>
-        </mat-card>
-    </div>
-
-
-    <!-- -----------------------Nueva seccion--------------------------- -->
-
-    <div *ngIf="persona.curriculum.skills" class="row d-flex justify-content-center">
-    <mat-card class="col-sm-12 col-md-8">
-        <mat-card-title >
-            Skills
-        </mat-card-title>
-        <mat-card-content>
-            <ul style="box-sizing: border-box;">
-                <li *ngFor="let skill of persona.curriculum.skills" class="row">
-                    <button mat-mini-fab (click)="crudSkillDialog({intencion:'editar',payload:skill})">
+                
+                <div class="col-sm-2 d-flex justify-content-end">
+                    <button *ngIf="editExperiencias" mat-mini-fab (click)="openExperienciaDialog({intencion:'crear',payload:persona.curriculum})">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                    <button mat-mini-fab (click)="editExperiencias = !editExperiencias">
                         <mat-icon>edit</mat-icon>
                     </button>
-                    <p>Tecnologia: {{skill.tecnologia}}</p>
-                    <p>Porcentaje de conocimiento: {{skill.porcentaje}}</p>
-                </li>
-            </ul>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-mini-fab (click)="crudSkillDialog({intencion:'crear',payload:persona.curriculum})">
-                <mat-icon>add</mat-icon>
-            </button>
-          </mat-card-actions>
-    </mat-card>
-    </div>
-
-
-
-<!-- -------------------------------Nueva seccion------------------------------- -->
-
-    <div *ngIf="persona.curriculum.proyectos" class="row d-flex justify-content-center">
-        <mat-card  class="col-sm-12 col-md-8">
-            <mat-card-title>
-                Proyectos
+                </div>
+                </div>
+    
+    
+                <mat-card-content>
+                    <div >
+                        <ul style="box-sizing: border-box;">
+                            <li *ngFor="let experiencia of persona.curriculum.experiencias"  >
+    
+                                <div class="row d-flex justify-content-end" style="padding-top: 2rem;" >
+                                    
+                                        
+                                    <div *ngIf="experiencia.logoImg.fuente;then imagenLogoEmpresa else placeholderLogoEmpresa"></div> 
+                                    <ng-template #imagenLogoEmpresa>
+                                        <div style="max-height: 7rem;" class="col-sm-2 col-md-4 d-flex justify-content-end">
+                                            <img style="height: 100%;  object-fit:scale-down;" [src]="experiencia.logoImg.fuente" alt="Imagen del logo empresarial">
+                                        </div>
+                                    </ng-template>
+                                    <ng-template #placeholderLogoEmpresa>
+                                        <div style="max-height: 7rem;" class="col-sm-2 col-md-4 d-flex justify-content-end">
+                                            <img style="height: 100%;max-height: 50px; object-fit:scale-down;" src="https://angular.io/assets/images/logos/angular/logo-nav@2x.png" alt="Imagen default del logo empresarial">
+                                        </div>
+                                    </ng-template>
+    
+                                    <div class="col-sm-10 col-md-6">
+                                        <h2 ><b>{{experiencia.nombreEmpresa}}</b></h2>
+                                        <span>{{experiencia.tipoJornada}}</span>
+                                        <p>{{experiencia.ubicacion}}</p>
+                                    </div>  
+    
+                                    <div class="col-sm-2 col-md-2 d-flex justify-content-end ">
+                                        <button *ngIf="editExperiencias" mat-mini-fab (click)="crudPuestoDialog({intencion:'crear',payload:experiencia})" >
+                                            <mat-icon>add</mat-icon>
+                                        </button>
+                                        <button *ngIf="editExperiencias" mat-mini-fab (click)="openExperienciaDialog({intencion:'editar',payload:experiencia})">
+                                            <mat-icon>edit</mat-icon>
+                                        </button>
+                                    </div>
+                                        
+                                </div>
+    
+                                <div class="row">
+    
+                                    <div class="col-sm col-md-4"></div>
+                                    <ul class="col-sm-12 col-md-8">
+                                        <li *ngFor="let puesto of experiencia.puestos" >
+                                            <div class="row">
+                                                <div class="col-9">
+                                                    <p  style="height: 2.5rem;"><b>{{puesto.nombre}}</b><br>
+                                                        <span>{{puesto.fechaInicio | date: 'MMM YYYY' }} / {{puesto.fechaFin | date: 'MMM YYYY'}}</span></p>
+                                                </div>
+                                                <div class="col-3 d-flex justify-content-end">
+                                                    <button  mat-mini-fab *ngIf="editExperiencias" (click)="crudPuestoDialog({intencion:'editar',payload:puesto})">
+                                                        <mat-icon>edit</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            
+                                            <p>{{puesto.descripcion}}</p>
+                                        </li> 
+                                        </ul>
+                                </div>
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-8"  style="overflow: hidden;">
+                                        <mat-divider></mat-divider>
+                                    </div>
+                                </div>
+                            
+    
+                            </li>
+                        </ul>
+                    </div>
+                </mat-card-content>
+    
+            </mat-card>
+        </div>
+        
+        <!-- -----------------------Nueva Seccion------------------ -->
+        <div *ngIf="persona.curriculum.estudios" class="row d-flex justify-content-center">
+            <mat-card class="col-sm-12 col-md-8">
+                <mat-card-title>
+                    Estudios
+                </mat-card-title>
+                <mat-card-content>
+                    <div class="container">
+                        <ul style="box-sizing: border-box;">
+                            <li *ngFor="let estudio of persona.curriculum.estudios" class="row">
+                                
+                                <div *ngIf="estudio.credencialImg.fuente;then imagenCredencial else placeholderCredencial"></div>
+                                <ng-template #imagenCredencial>
+                                    <div>
+                                        <img [src]="estudio.credencialImg.fuente" alt="Imagen de credencial educativa" style="max-height: 200px; object-fit:contain;" alt="Imagen de credencial">
+                                    </div>
+                                </ng-template>
+                                <ng-template #placeholderCredencial>
+                                    <div>
+                                        <img src="https://cdn-payscale.com/content/placeholder-images/certification-placeholder.png" style="max-height: 200px; object-fit:contain;" alt="Imagen default de credencial educativa" >
+                                    </div>
+                                </ng-template>
+    
+                                <p>{{estudio.institucion}}</p>
+                                <p>{{estudio.titulo}}</p>
+                                <p>{{estudio.fechaInicio | date: 'MMM YYYY' }} / {{estudio.fechaFin | date: 'MMM    YYYY'}}</p>
+                                <p>Código de credencial: {{estudio.credencial}}</p>
+                                <a [href]='estudio.linkValidacion'>{{estudio.linkValidacion}}</a>
+                                <button mat-mini-fab color="primary" (click)="crudEstudioDialog({intencion:'editar',payload:estudio})">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+    
+                            </li>
+    
+    
+    
+                        </ul>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-mini-fab color="primary" (click)="crudEstudioDialog({intencion:'crear',payload:persona.curriculum})">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                  </mat-card-actions>
+            </mat-card>
+        </div>
+    
+    
+        <!-- -----------------------Nueva seccion--------------------------- -->
+    
+        <div *ngIf="persona.curriculum.skills" class="row d-flex justify-content-center">
+        <mat-card class="col-sm-12 col-md-8">
+            <mat-card-title >
+                Skills
             </mat-card-title>
             <mat-card-content>
                 <ul style="box-sizing: border-box;">
-
-
-                    <li *ngFor="let proyecto of persona.curriculum.proyectos">
-                        <mat-card class="project-card">
-                            <mat-card-title>{{proyecto.nombre}}</mat-card-title>
-                            <button mat-mini-fab (click)="crudProyectoDialog({intencion:'editar',payload:proyecto})">
-                                <mat-icon>edit</mat-icon>
-                            </button>
-                            
-                            <div *ngIf="proyecto.previewImg && proyecto.previewImg.fuente;then imagenProyecto else placeholderProyecto"></div>
-                            <ng-template #imagenProyecto>
-                                <img mat-card-image [src]="proyecto.previewImg.fuente" alt="Imagen de proyecto">
-                            </ng-template>
-                            <ng-template #placeholderProyecto>
-                                <img mat-card-image src="https://designshack.net/wp-content/uploads/placeholder-image.png" alt="Imagen default de proyecto">
-                            </ng-template>
-
-
-                            <mat-card-content>
-                                <p>Descripcion: {{proyecto.descripcion}}</p>
-                                <a [href]="proyecto.link">{{proyecto.link}}</a>
-                            </mat-card-content>
-                        </mat-card>
+                    <li *ngFor="let skill of persona.curriculum.skills" class="row">
+                        <button mat-mini-fab (click)="crudSkillDialog({intencion:'editar',payload:skill})">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <p>Tecnologia: {{skill.tecnologia}}</p>
+                        <p>Porcentaje de conocimiento: {{skill.porcentaje}}</p>
                     </li>
-
-               
                 </ul>
             </mat-card-content>
             <mat-card-actions>
-                <button mat-mini-fab (click)="crudProyectoDialog({intencion:'crear',payload:persona.curriculum})">
+                <button mat-mini-fab (click)="crudSkillDialog({intencion:'crear',payload:persona.curriculum})">
                     <mat-icon>add</mat-icon>
                 </button>
               </mat-card-actions>
         </mat-card>
+        </div>
+    
+    
+    
+    <!-- -------------------------------Nueva seccion------------------------------- -->
+    
+        <div *ngIf="persona.curriculum.proyectos" class="row d-flex justify-content-center">
+            <mat-card  class="col-sm-12 col-md-8">
+                <mat-card-title>
+                    Proyectos
+                </mat-card-title>
+                <mat-card-content>
+                    <ul style="box-sizing: border-box;">
+    
+    
+                        <li *ngFor="let proyecto of persona.curriculum.proyectos">
+                            <mat-card class="project-card">
+                                <mat-card-title>{{proyecto.nombre}}</mat-card-title>
+                                <button mat-mini-fab (click)="crudProyectoDialog({intencion:'editar',payload:proyecto})">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                                
+                                <div *ngIf="proyecto.previewImg && proyecto.previewImg.fuente;then imagenProyecto else placeholderProyecto"></div>
+                                <ng-template #imagenProyecto>
+                                    <img mat-card-image [src]="proyecto.previewImg.fuente" alt="Imagen de proyecto">
+                                </ng-template>
+                                <ng-template #placeholderProyecto>
+                                    <img mat-card-image src="https://designshack.net/wp-content/uploads/placeholder-image.png" alt="Imagen default de proyecto">
+                                </ng-template>
+    
+    
+                                <mat-card-content>
+                                    <p>Descripcion: {{proyecto.descripcion}}</p>
+                                    <a [href]="proyecto.link">{{proyecto.link}}</a>
+                                </mat-card-content>
+                            </mat-card>
+                        </li>
+    
+                   
+                    </ul>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-mini-fab (click)="crudProyectoDialog({intencion:'crear',payload:persona.curriculum})">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                  </mat-card-actions>
+            </mat-card>
+        </div>
+    
+    
+    
+    
     </div>
-
-
-
-
-</div>
+    
+</ng-template>

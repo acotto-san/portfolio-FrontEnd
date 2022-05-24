@@ -35,7 +35,7 @@ export class CurriculumComponent implements OnInit {
   idPersona:number = 27;
 
   editExperiencias:boolean = false;
-  loadingDiv:boolean = true;
+  loading:boolean = true;
   public content: any = {};
   public other_content: any = {};
 
@@ -59,7 +59,7 @@ export class CurriculumComponent implements OnInit {
       next:(response)=>{
         this.persona = new Persona(response);
         console.log("traigo persona");
-        this.loadingDiv = false;
+        this.loading = false;
       },
       error:()=>{
         alert("error al cargar persona")
