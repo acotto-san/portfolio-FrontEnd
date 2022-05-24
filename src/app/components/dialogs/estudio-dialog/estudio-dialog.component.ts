@@ -75,50 +75,46 @@ export class EstudioDialogComponent implements OnInit {
     switch(intencionDeCierre){
       case 'confirmar':
         
-        switch(this.inputDataDialog.intencion){
-          case 'crear':
-            this.volcarDataDelForm();
-            this.tempCurriculum.estudios.push(this.tempEdu)
-            this.dialogForm.reset();
-            this.dialogRef.close({intencion:this.inputDataDialog.intencion,payload:this.tempCurriculum})        
-            break;
-
-          case 'editar':
-            this.volcarDataDelForm()
-            this.dialogForm.reset();
-            this.dialogRef.close({intencion:this.inputDataDialog.intencion,payload:this.tempEdu})
-            break;
-          }
+        if(this.dialogForm.valid){
+          switch(this.inputDataDialog.intencion){
+            case 'crear':
+              this.outputDataParaCrear()
+              break;
+  
+            case 'editar':
+              this.outputDataParaEditar()
+              break;
+            }
+        }
         break;
       
       case 'eliminar':
-        this.dialogForm.reset();
-        this.dialogRef.close({intencion:"eliminar",payload:this.inputDataDialog.payload.id})
+        this.outputDataParaEliminar();
         break;
       
       case 'cancelar':
         this.dialogForm.reset();
-        this.dialogRef.close({intencion:'cancelar',payload:null})
+        this.dialogRef.close({intencion:'cancelar',payload:null});
         break;
     }
   }
-  // outputDataParaCrear(){
-  //   this.volcarDataDelForm();
-  //   this.tempCurriculum.estudios.push(this.tempEdu)
-  //   this.dialogForm.reset();
-  //   this.dialogRef.close({intencion:this.inputDataDialog.intencion,payload:this.tempCurriculum})
-  // }
+  outputDataParaCrear(){
+    this.volcarDataDelForm();
+    this.tempCurriculum.estudios.push(this.tempEdu)
+    this.dialogForm.reset();
+    this.dialogRef.close({intencion:this.inputDataDialog.intencion,payload:this.tempCurriculum})  
+  }
 
-  // outputDataParaEditar(){
-  //   this.volcarDataDelForm()
-  //   this.dialogForm.reset();
-  //   this.dialogRef.close({intencion:this.inputDataDialog.intencion,payload:this.tempEdu})
-  // }
+  outputDataParaEditar(){
+    this.volcarDataDelForm()
+    this.dialogForm.reset();
+    this.dialogRef.close({intencion:this.inputDataDialog.intencion,payload:this.tempEdu})
+  }
 
-  // outputDataParaEliminar(){
-  //   this.dialogForm.reset();
-  //   this.dialogRef.close({intencion:"eliminar",payload:this.inputDataDialog.payload.id})
-  // }
+  outputDataParaEliminar(){
+    this.dialogForm.reset();
+    this.dialogRef.close({intencion:"eliminar",payload:this.inputDataDialog.payload.id})
+  }
 
   volcarDataDelForm(){
     this.tempEdu.institucion = this.dialogForm.value.institucion

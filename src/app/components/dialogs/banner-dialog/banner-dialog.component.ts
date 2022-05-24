@@ -27,8 +27,8 @@ export class BannerDialogComponent implements OnInit {
       nombrePersona : ['',Validators.required],
       puestoActual : ['',Validators.required],
       descripcionPersonal : ['',Validators.required],
-      avatarImgFuente : ['',Validators.required],
-      bannerImgFuente : ['',Validators.required]
+      avatarImgFuente : [''],
+      bannerImgFuente : ['']
     });
 
     this.setearParaEditar(); 
@@ -63,9 +63,10 @@ export class BannerDialogComponent implements OnInit {
   }//sin logica cargada
 
   cerrarDialog(intencionDeCierre:'cancelar'|'confirmar'){
-    if(this.dialogForm.valid){
-      switch(intencionDeCierre){
-        case 'confirmar':
+
+    switch(intencionDeCierre){
+      case 'confirmar':
+        if(this.dialogForm.valid){
           switch(this.inputDataDialog.intencion){
             case 'editar':
               this.outputDataParaEditar();
@@ -74,13 +75,14 @@ export class BannerDialogComponent implements OnInit {
               this.outputDataParaCrear();
               break;
           }
-          break;
-        case 'cancelar':
-          this.dialogForm.reset();
-          this.dialogRef.close({intencion:'cancelar',payload:null})
-          break;
-      }
+        }
+        break;
+      case 'cancelar':
+        this.dialogForm.reset();
+        this.dialogRef.close({intencion:'cancelar',payload:null})
+        break;
     }
+    
   }
 
   outputDataParaEditar(){
