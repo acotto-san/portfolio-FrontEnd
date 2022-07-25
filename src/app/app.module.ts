@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -30,6 +30,7 @@ import { BannerDialogComponent } from './components/dialogs/banner-dialog/banner
 import { ProyectoDialogComponent } from './components/dialogs/proyecto-dialog/proyecto-dialog.component';
 import { SkillDialogComponent } from './components/dialogs/skill-dialog/skill-dialog.component';
 import { EstudioDialogComponent } from './components/dialogs/estudio-dialog/estudio-dialog.component';
+import { InterceptorService } from './services/interceptor.service';
 
 
 @NgModule({
@@ -67,7 +68,7 @@ import { EstudioDialogComponent } from './components/dialogs/estudio-dialog/estu
     MatNativeDateModule,
     MatSelectModule
   ],
-  providers: [],
+  providers: [{provide:HTTP_INTERCEPTORS, useClass:InterceptorService,multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

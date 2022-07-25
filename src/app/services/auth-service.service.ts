@@ -10,11 +10,11 @@ export class AuthServiceService {
   private uri = environment.apiBaseUrl;
   constructor(private http: HttpClient, private router: Router) { }
 
-  login(email:string, password:string){
-    this.http.post(this.uri + '/authenticate', {email:email, password:password})
+  login(username:string, password:string){
+    this.http.post(this.uri + '/authenticate', {username:username, password:password})
     .subscribe((resp:any) => {
       //Redireccionamos al usuario a su perfil
-      this.router.navigate(['profile']);
+      this.router.navigate(['cv/1']);
       //Guardamos el token en localStorage
       localStorage.setItem('auth_token',resp.token)
     })
