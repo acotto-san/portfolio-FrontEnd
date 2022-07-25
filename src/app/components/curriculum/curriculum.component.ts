@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, Params } from '@angular/router';
 import { IODataDialog } from 'src/app/intefaces/iodata-dialog';
-import { Curriculum } from 'src/app/models/curriculum';
-import { ExperienciaLaboral } from 'src/app/models/experiencia-laboral';
-import { ExperienciaPuesto } from 'src/app/models/experiencia-puesto';
 import { Persona } from 'src/app/models/persona';
 import { BannerService } from 'src/app/services/banner.service';
 import { CurriculumService } from 'src/app/services/curriculum.service';
@@ -32,7 +29,8 @@ import { SkillDialogComponent } from '../dialogs/skill-dialog/skill-dialog.compo
 
 export class CurriculumComponent implements OnInit {
   persona:Persona = new Persona({});
-  idPersona:number = 27;
+  idPersona:number = 1;
+  cvId!:number;
 
   editExperiencias:boolean = false;
   loadingDiv:boolean = true;
@@ -47,27 +45,21 @@ export class CurriculumComponent implements OnInit {
               private estudioServ:EstudioService,
               private skillServ:SkillService,
               private proyectoServ:ProyectoService,
-              private dialog:MatDialog
+              private dialog:MatDialog,
+              private rutaActiva: ActivatedRoute
               ) { }
 
   ngOnInit(): void {
-    this.primerCarga()
+    //captura el id de la url para hacer el get del curriculum
+    this.rutaActiva.params.subscribe((params:Params)=>{
+      this.cvId = params['cvId'].toString();
+    })
+
+    //hace la request para conseguir el cv
+    this.traerPersona()
   }
 
-  primerCarga(id:number=this.idPersona){
-    this.personaServ.getPersona(id).subscribe({
-      next:(response)=>{
-        this.persona = new Persona(response);
-        console.log("traigo persona");
-        this.loadingDiv = false;
-      },
-      error:()=>{
-        alert("error al cargar persona")
-      }
-    });
-  }
-
-  traerPersona(id:number=this.idPersona){
+  traerPersona(id:number=this.cvId){
     this.personaServ.getPersona(id).subscribe({
       next:(response)=>{
         this.persona = new Persona(response)
