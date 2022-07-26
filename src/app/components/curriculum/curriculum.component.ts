@@ -60,10 +60,12 @@ export class CurriculumComponent implements OnInit {
   }
 
   traerPersona(id:number=this.cvId){
+    this.loadingDiv = true;
     this.personaServ.getPersona(id).subscribe({
       next:(response)=>{
+        
         this.persona = new Persona(response)
-        console.log("traigo persona")
+        this.loadingDiv = false;
       },
       error:()=>{
         alert("error al cargar persona")

@@ -1,8 +1,9 @@
-<div class="loader" [hidden]="!loadingDiv">
-    
+<img class="background-img" src="https://argentinaprograma.inti.gob.ar/theme/image.php/moove/theme/1657411642/login_bg" alt="">
+<div class="loader-container" *ngIf="loadingDiv">
+    <div class="loader"></div>
 </div>
 <div  class="container">
-
+    
     <!-- ------------------Nueva seccion------------------------ -->
     <div *ngIf="persona.curriculum.banner" class="row d-flex justify-content-center">
         <mat-card class="example-card col-sm-12 col-md-8">
