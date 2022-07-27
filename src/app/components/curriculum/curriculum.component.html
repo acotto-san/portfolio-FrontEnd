@@ -1,12 +1,14 @@
 <img class="background-img" src="https://argentinaprograma.inti.gob.ar/theme/image.php/moove/theme/1657411642/login_bg" alt="">
+
 <div class="loader-container" *ngIf="loadingDiv">
     <div class="loader"></div>
 </div>
-<div  class="container">
+
+<div  class="container" *ngIf="!loadingDiv">
     
     <!-- ------------------Nueva seccion------------------------ -->
     <div *ngIf="persona.curriculum.banner" class="row d-flex justify-content-center">
-        <mat-card class="example-card col-sm-12 col-md-8">
+        <mat-card class="example-card col-sm-12 col-md-8" >
             <mat-card-header>
 
             </mat-card-header>
@@ -46,11 +48,11 @@
                 </div>
             </mat-card-content>
             <mat-card-actions>
-              <button mat-stroked-button color="primary" (click)="crudBannerDialog({intencion:'editar',payload:persona.curriculum.banner})">
-                  <mat-icon>edit</mat-icon>
-              </button>
+                <button  mat-mini-fab id="edit-banner-button" color="primary" (click)="crudBannerDialog({intencion:'editar',payload:persona.curriculum.banner})">
+                    <mat-icon>edit</mat-icon>
+                </button>
             </mat-card-actions>
-          </mat-card>
+        </mat-card>
     </div>
 
 
@@ -60,11 +62,8 @@
         <mat-card class="col-sm-12 col-md-8 " style="padding: 30px;">
                 
             <mat-card-header class="row">
-
                 <div class="col-sm-2">
-
                 </div>
-
                 <div class="col-sm-8 d-flex align-content-center">
                     <mat-card-title>
                         Experiencias Laborales
@@ -81,10 +80,6 @@
                         </button>
                     </mat-card-actions>
                 </div>
-
-                
-
-
             </mat-card-header>
 
 
@@ -92,10 +87,10 @@
                 <div >
                     <ul style="box-sizing: border-box;">
                         <li *ngFor="let experiencia of persona.curriculum.experiencias"  >
-
+                        
                             <div class="row d-flex justify-content-end" style="padding-top: 2rem;" >
                                 
-                                    
+                                
                                 <div *ngIf="experiencia.logoImg.fuente;then imagenLogoEmpresa else placeholderLogoEmpresa"></div> 
                                 <ng-template #imagenLogoEmpresa>
                                     <div style="max-height: 7rem;" class="col-sm-2 col-md-4 d-flex justify-content-end">
@@ -107,13 +102,13 @@
                                         <img style="height: 100%;max-height: 50px; object-fit:scale-down;" src="https://angular.io/assets/images/logos/angular/logo-nav@2x.png" alt="Imagen default del logo empresarial">
                                     </div>
                                 </ng-template>
-
+                                
                                 <div class="col-sm-10 col-md-6">
                                     <h2 ><b>{{experiencia.nombreEmpresa}}</b></h2>
                                     <span>{{experiencia.tipoJornada}}</span>
                                     <p>{{experiencia.ubicacion}}</p>
                                 </div>  
-
+                                
                                 <div class="col-sm-2 col-md-2 d-flex justify-content-end ">
                                     <button *ngIf="editExperiencias" mat-mini-fab (click)="crudPuestoDialog({intencion:'crear',payload:experiencia})" >
                                         <mat-icon>add</mat-icon>
@@ -163,10 +158,27 @@
     
     <!-- -----------------------Nueva Seccion------------------ -->
     <div *ngIf="persona.curriculum.estudios" class="row d-flex justify-content-center">
-        <mat-card class="col-sm-12 col-md-8">
-            <mat-card-title>
-                Estudios
-            </mat-card-title>
+        <mat-card class="col-sm-12 col-md-8" style="padding: 30px;">
+            <mat-card-header class="row">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-8 d-flex align-content-center">
+                    <mat-card-title>
+                        Estudios
+                    </mat-card-title>
+                </div>
+                
+                <div class="col-sm-2">
+                    <mat-card-actions align="end">
+                        <button *ngIf="editEstudios" mat-mini-fab (click)="crudEstudioDialog({intencion:'crear',payload:persona.curriculum})">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                        <button mat-mini-fab (click)="editEstudios = !editEstudios">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </div>
+            </mat-card-header>
             <mat-card-content>
                 <div class="container">
                     <ul style="box-sizing: border-box;">
@@ -183,28 +195,21 @@
                                     <img src="https://cdn-payscale.com/content/placeholder-images/certification-placeholder.png" style="max-height: 200px; object-fit:contain;" alt="Imagen default de credencial educativa" >
                                 </div>
                             </ng-template>
-
+                            
                             <p>{{estudio.institucion}}</p>
                             <p>{{estudio.titulo}}</p>
                             <p>{{estudio.fechaInicio | date: 'MMM YYYY' }} / {{estudio.fechaFin | date: 'MMM    YYYY'}}</p>
                             <p>Código de credencial: {{estudio.credencial}}</p>
                             <a [href]='estudio.linkValidacion'>{{estudio.linkValidacion}}</a>
-                            <button mat-mini-fab color="primary" (click)="crudEstudioDialog({intencion:'editar',payload:estudio})">
+                            <button *ngIf="editEstudios" mat-mini-fab color="primary" (click)="crudEstudioDialog({intencion:'editar',payload:estudio})">
                                 <mat-icon>edit</mat-icon>
                             </button>
-
+                            
                         </li>
-
-
-
+                        
                     </ul>
                 </div>
             </mat-card-content>
-            <mat-card-actions>
-                <button mat-mini-fab color="primary" (click)="crudEstudioDialog({intencion:'crear',payload:persona.curriculum})">
-                    <mat-icon>add</mat-icon>
-                </button>
-              </mat-card-actions>
         </mat-card>
     </div>
 
@@ -212,14 +217,32 @@
     <!-- -----------------------Nueva seccion--------------------------- -->
 
     <div *ngIf="persona.curriculum.skills" class="row d-flex justify-content-center">
-    <mat-card class="col-sm-12 col-md-8">
-        <mat-card-title >
-            Skills
-        </mat-card-title>
+        <mat-card class="col-sm-12 col-md-8 " style="padding: 30px;">
+                
+            <mat-card-header class="row">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-8 d-flex align-content-center">
+                    <mat-card-title>
+                        Skills
+                    </mat-card-title>
+                </div>
+                
+                <div class="col-sm-2">
+                    <mat-card-actions align="end">
+                        <button *ngIf="editSkills" mat-mini-fab (click)="crudSkillDialog({intencion:'crear',payload:persona.curriculum})">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                        <button mat-mini-fab (click)="editSkills = !editSkills">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </div>
+            </mat-card-header>
         <mat-card-content>
             <ul style="box-sizing: border-box;">
                 <li *ngFor="let skill of persona.curriculum.skills" class="row">
-                    <button mat-mini-fab (click)="crudSkillDialog({intencion:'editar',payload:skill})">
+                    <button *ngIf="editSkills" mat-mini-fab (click)="crudSkillDialog({intencion:'editar',payload:skill})">
                         <mat-icon>edit</mat-icon>
                     </button>
                     <p>Tecnologia: {{skill.tecnologia}}</p>
@@ -227,11 +250,6 @@
                 </li>
             </ul>
         </mat-card-content>
-        <mat-card-actions>
-            <button mat-mini-fab (click)="crudSkillDialog({intencion:'crear',payload:persona.curriculum})">
-                <mat-icon>add</mat-icon>
-            </button>
-          </mat-card-actions>
     </mat-card>
     </div>
 
@@ -240,18 +258,36 @@
 <!-- -------------------------------Nueva seccion------------------------------- -->
 
     <div *ngIf="persona.curriculum.proyectos" class="row d-flex justify-content-center">
-        <mat-card  class="col-sm-12 col-md-8">
-            <mat-card-title>
-                Proyectos
-            </mat-card-title>
+        <mat-card class="col-sm-12 col-md-8 " style="padding: 30px;">
+                
+            <mat-card-header class="row">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-8 d-flex align-content-center">
+                    <mat-card-title>
+                        Proyectos
+                    </mat-card-title>
+                </div>
+                
+                <div class="col-sm-2">
+                    <mat-card-actions align="end">
+                        <button *ngIf="editProyectos" mat-mini-fab (click)="crudProyectoDialog({intencion:'crear',payload:persona.curriculum})">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                        <button mat-mini-fab (click)="editProyectos = !editProyectos">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </div>
+            </mat-card-header>
             <mat-card-content>
-                <ul style="box-sizing: border-box;">
+                <ul style="box-sizing: border-box;"  class="project-container">
 
 
                     <li *ngFor="let proyecto of persona.curriculum.proyectos">
                         <mat-card class="project-card">
                             <mat-card-title>{{proyecto.nombre}}</mat-card-title>
-                            <button mat-mini-fab (click)="crudProyectoDialog({intencion:'editar',payload:proyecto})">
+                            <button *ngIf="editProyectos" (click)="crudProyectoDialog({intencion:'editar',payload:proyecto})">
                                 <mat-icon>edit</mat-icon>
                             </button>
                             
@@ -274,11 +310,6 @@
                
                 </ul>
             </mat-card-content>
-            <mat-card-actions>
-                <button mat-mini-fab (click)="crudProyectoDialog({intencion:'crear',payload:persona.curriculum})">
-                    <mat-icon>add</mat-icon>
-                </button>
-              </mat-card-actions>
         </mat-card>
     </div>
 

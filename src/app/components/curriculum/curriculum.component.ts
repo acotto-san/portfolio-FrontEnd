@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { IODataDialog } from 'src/app/intefaces/iodata-dialog';
 import { Persona } from 'src/app/models/persona';
 import { BannerService } from 'src/app/services/banner.service';
@@ -33,6 +33,9 @@ export class CurriculumComponent implements OnInit {
   cvId!:number;
 
   editExperiencias:boolean = false;
+  editEstudios:boolean = false;
+  editSkills:boolean = false;
+  editProyectos:boolean = false;
   loadingDiv:boolean = true;
   public content: any = {};
   public other_content: any = {};
@@ -46,7 +49,8 @@ export class CurriculumComponent implements OnInit {
               private skillServ:SkillService,
               private proyectoServ:ProyectoService,
               private dialog:MatDialog,
-              private rutaActiva: ActivatedRoute
+              private rutaActiva: ActivatedRoute,
+              private router: Router
               ) { }
 
   ngOnInit(): void {
@@ -60,7 +64,7 @@ export class CurriculumComponent implements OnInit {
   }
 
   traerPersona(id:number=this.cvId){
-    this.loadingDiv = true;
+    // this.loadingDiv = true;
     this.personaServ.getPersona(id).subscribe({
       next:(response)=>{
         
@@ -68,7 +72,8 @@ export class CurriculumComponent implements OnInit {
         this.loadingDiv = false;
       },
       error:()=>{
-        alert("error al cargar persona")
+        alert("Por favor, inicia sesión para ver este contenido.")
+        this.router.navigate(['login'])
       }
     });
   }
