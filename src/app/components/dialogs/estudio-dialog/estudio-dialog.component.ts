@@ -29,10 +29,10 @@ export class EstudioDialogComponent implements OnInit {
       institucion : ['',Validators.required],
       titulo : ['',Validators.required],
       fechaInicio : ['',Validators.required],
-      fechaFin : ['',Validators.required],
-      credencial: ['',Validators.required],
-      linkValidacion: ['',Validators.required],
-      credencialImgFuente: ['',Validators.required],
+      fechaFin : [''],
+      credencial: [''],
+      linkValidacion: [''],
+      credencialImgFuente: [''],
 
     });
     this.evaluarAccion()
