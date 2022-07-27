@@ -141,7 +141,7 @@
                                     </li> 
                                     </ul>
                             </div>
-                            <div class="row d-flex justify-content-center">
+                            <div *ngIf="experiencia != persona.curriculum.experiencias[persona.curriculum.experiencias.length-1]" class="row d-flex justify-content-center">
                                 <div class="col-8"  style="overflow: hidden;">
                                     <mat-divider></mat-divider>
                                 </div>
@@ -283,14 +283,9 @@
             <mat-card-content>
                 <ul style="box-sizing: border-box;"  class="project-container">
 
-
                     <li *ngFor="let proyecto of persona.curriculum.proyectos">
                         <mat-card class="project-card">
-                            <mat-card-title>{{proyecto.nombre}}</mat-card-title>
-                            <button *ngIf="editProyectos" (click)="crudProyectoDialog({intencion:'editar',payload:proyecto})">
-                                <mat-icon>edit</mat-icon>
-                            </button>
-                            
+                            <mat-card-title>{{proyecto.nombre}}</mat-card-title>                            
                             <div *ngIf="proyecto.previewImg && proyecto.previewImg.fuente;then imagenProyecto else placeholderProyecto"></div>
                             <ng-template #imagenProyecto>
                                 <img mat-card-image [src]="proyecto.previewImg.fuente" alt="Imagen de proyecto">
@@ -298,12 +293,15 @@
                             <ng-template #placeholderProyecto>
                                 <img mat-card-image src="https://designshack.net/wp-content/uploads/placeholder-image.png" alt="Imagen default de proyecto">
                             </ng-template>
-
-
                             <mat-card-content>
-                                <p>Descripcion: {{proyecto.descripcion}}</p>
+                                <p>{{proyecto.descripcion}}</p>
                                 <a [href]="proyecto.link">{{proyecto.link}}</a>
                             </mat-card-content>
+                            <mat-card-actions>
+                                <button mat-mini-fab *ngIf="editProyectos" (click)="crudProyectoDialog({intencion:'editar',payload:proyecto})">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                            </mat-card-actions>
                         </mat-card>
                     </li>
 
