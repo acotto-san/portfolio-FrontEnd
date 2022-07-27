@@ -1,0 +1,26 @@
+*{
+    box-sizing: border-box;
+}
+
+.container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.container>img{
+    position:fixed;
+    z-index: 0;
+    top:0;
+    left: 0;
+    width: 100vw;
+    
+}
+mat-form-field{
+    width: 100%;
+}
+mat-card{
+    min-width: 400px;
+    min-height: 200px;
+    margin: auto auto;
+}
